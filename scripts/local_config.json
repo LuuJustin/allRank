@@ -21,7 +21,7 @@
     }
   },
   "data": {
-    "path": "/allrank/MSLR-WEB10K/Fold2/_normalized",
+    "path": "/allrank/MSLR-WEB10K/Fold1/_normalized",
     "validation_ds_role": "vali",
     "num_workers": 1,
     "batch_size": 32,
@@ -41,7 +41,7 @@
     }
   },
   "training": {
-    "epochs": 2,
+    "epochs": 100,
     "early_stopping_patience": 10,
     "gradient_clipping_norm": null
   },
@@ -64,7 +64,7 @@
     "ndcg_10"
   ],
   "loss": {
-    "name": "approxNDCGLoss",
+    "name": "rankNet",
     "args": {}
   },
   "expected_metrics": {
