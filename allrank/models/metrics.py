@@ -112,47 +112,6 @@ def mrr(y_pred, y_true, ats=None, padding_indicator=PADDED_Y_VALUE):
 
     return result
 
-def recall(y_pred, y_true, ats=None, min_relevance=1, padding_indicator=PADDED_Y_VALUE):
-    """
-    Recall at k.
-
-    Compute Recall at ranks given by ats or at the maximum rank if ats is None.
-    :param y_pred: predictions from the model, shape [batch_size, slate_length]
-    :param y_true: ground truth labels, shape [batch_size, slate_length]
-    :param ats: optional list of ranks for MRR evaluation, if None, maximum rank is used
-    :param min_relevance: minimum relevance value to be considered as relevant
-    :param padding_indicator: an indicator of the y_true index containing a padded item, e.g. -1
-    :return: Recall values for each slate and evaluation position, shape [batch_size, len(ats)]
-    """
-    recalls = []
-    for i in range(len(ats)):
-
-        y_true = y_true.clone()
-        y_pred = y_pred.clone()
-
-        if ats is None:
-            ats = [y_true.shape[1]]
-
-        ats = np.array(ats)
-        ats = np.where(ats == 0, y_true.shape[1], ats)
-
-        true_sorted_by_preds = __apply_mask_and_get_true_sorted_by_preds(y_pred, y_true, padding_indicator)
-
-        ats_rep = torch.tensor(data=ats[i], device=true_sorted_by_preds.device, dtype=torch.float32).expand(
-            y_true.shape)
-        indices = torch.arange(0, y_true.shape[1], device=true_sorted_by_preds.device, dtype=torch.float32).expand(
-            y_true.shape)
-        within_at_mask = (indices < ats_rep).type(torch.float32)
-
-        masked_true_sorted_by_preds = true_sorted_by_preds * within_at_mask
-        relevant_retrieved = masked_true_sorted_by_preds >= min_relevance
-        relevant_total = (true_sorted_by_preds >= min_relevance).type(torch.float32).sum(dim=1, keepdim=True)
-        recalls.append(
-            torch.sum(relevant_retrieved, dim=1, keepdim=True) / relevant_total)
-        zero_mask = relevant_total == 0
-        recalls[i][zero_mask] = 0
-    return torch.cat(tuple(recalls), 1)
-
 def map(y_pred, y_true, ats=None, padding_indicator=PADDED_Y_VALUE, cutoff=1):
     """
     Map at k.

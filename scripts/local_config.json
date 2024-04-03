@@ -21,7 +21,7 @@
     }
   },
   "data": {
-    "path": "/allrank/MSLR-WEB10K/Fold1/_normalized",
+    "path": "/allrank/MSLR-WEB10K/Fold2/_normalized",
     "validation_ds_role": "vali",
     "num_workers": 1,
     "batch_size": 32,
@@ -41,21 +41,30 @@
     }
   },
   "training": {
-    "epochs": 100,
+    "epochs": 2,
     "early_stopping_patience": 10,
     "gradient_clipping_norm": null
   },
   "val_metric": "ndcg_5",
   "metrics": [
-    "recall_5",
+    "precision_1",
     "precision_5",
+    "precision_10",
+    "map_1",
     "map_5",
+    "map_10",
+    "rmse_1",
     "rmse_5",
+    "rmse_10",
+    "mrr_1",
     "mrr_5",
-    "ndcg_5"
+    "mrr_10",
+    "ndcg_1",
+    "ndcg_5",
+    "ndcg_10"
   ],
   "loss": {
-    "name": "rankNet",
+    "name": "approxNDCGLoss",
     "args": {}
   },
   "expected_metrics": {
