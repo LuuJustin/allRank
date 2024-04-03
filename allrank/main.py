@@ -20,7 +20,18 @@ from functools import partial
 from pprint import pformat
 from torch import optim
 
+def check_cuda():
+    # Check if CUDA is available
+    if torch.cuda.is_available():
+        print("CUDA is available! :D")
+        # Get the name of the CUDA device
+        cuda_device_name = torch.cuda.get_device_name(0)
+        print(f"CUDA Device name: {cuda_device_name}")
+    else:
+        print("CUDA is not available. :(")
 
+if __name__ == "__main__":
+    check_cuda()
 def parse_args() -> Namespace:
     parser = ArgumentParser("allRank")
     parser.add_argument("--job-dir", help="Base output path for all experiments", required=True)

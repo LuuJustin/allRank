@@ -6,14 +6,14 @@
       ],
       "input_norm": false,
       "activation": null,
-      "dropout": 0.0
+      "dropout": 0
     },
     "transformer": {
       "N": 1,
       "d_ff": 64,
       "h": 1,
       "positional_encoding": null,
-      "dropout": 0.0
+      "dropout": 0
     },
     "post_model": {
       "output_activation": "Sigmoid",
@@ -21,10 +21,10 @@
     }
   },
   "data": {
-    "path": "./data/MSLR-WEB10K",
+    "path": "/allrank/MSLR-WEB10K/Fold1/_normalized",
     "validation_ds_role": "vali",
     "num_workers": 1,
-    "batch_size": 16,
+    "batch_size": 32,
     "slate_length": 240
   },
   "optimizer": {
@@ -41,23 +41,26 @@
     }
   },
   "training": {
-    "epochs": 100,
-    "early_stopping_patience": 20,
+    "epochs": 2,
+    "early_stopping_patience": 10,
     "gradient_clipping_norm": null
   },
   "val_metric": "ndcg_5",
   "metrics": [
+    "recall_5",
+    "precision_5",
+    "map_5",
+    "rmse_5",
+    "mrr_5",
     "ndcg_5"
   ],
   "loss": {
-    "name": "pointwise_rmse",
-    "args": {
-      "no_of_levels": 2
-    }
+    "name": "rankNet",
+    "args": {}
   },
-  "expected_metrics" : {
+  "expected_metrics": {
     "val": {
-      "ndcg_5": 0.76
+      "ndcg_5": 0
     }
   }
 }

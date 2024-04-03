@@ -106,8 +106,11 @@ class Config:
         metrics_dict = defaultdict(list)  # type: Dict[str, list]
         for metric_string in metrics:
             try:
-                name, at = metric_string.split("_")
-                metrics_dict[name].append(int(at))
+                if "_" not in metric_string:
+                    continue
+                else:
+                    name, at = metric_string.split("_")
+                    metrics_dict[name].append(int(at))
             except (ValueError, TypeError):
                 raise MetricConfigError(
                     metric_string,
