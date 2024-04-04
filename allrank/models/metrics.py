@@ -159,7 +159,6 @@ def map(y_pred, y_true, ats=None, padding_indicator=PADDED_Y_VALUE, cutoff=1):
 
 def precision(y_pred, y_true, ats=None, padding_indicator=PADDED_Y_VALUE, cutoff=1, no_torch=True):
     """
-    Recall at k.
 
     Compute Precision at ranks given by ats or at the maximum rank if ats is None.
     :param y_pred: predictions from the model, shape [batch_size, slate_length]
