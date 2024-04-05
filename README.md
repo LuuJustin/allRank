@@ -1,5 +1,7 @@
 # allRank : Learning to Rank in PyTorch
 
+Credits to the fork of https://github.com/drobiu/allRank for the metrics used for evaluating the experiment results, Precision, MAP and RMSE.
+
 ## About
 
 allRank is a PyTorch-based framework for training neural Learning-to-Rank (LTR) models, featuring implementations of:
